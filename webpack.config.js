@@ -1,57 +1,80 @@
-module.exports = [
-  {
-    entry: './app/index.js',
-    devtool: false,
-    mode: "development",
-    module: {
-      rules: [{
+var path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const devMode = process.env.NODE_ENV !== 'production';
+
+module.exports = [{
+  entry: path.resolve(__dirname, 'app/index.js'),
+  optimization: {
+    // We no not want to minimize our code.
+    minimize: false
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  resolve: {
+    extensions: ['*', '.js']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.html$/,
         use: [
           {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env']
-            }
+            loader: "html-loader",
+            options: { minimize: false }
           }
         ]
-      }]
-    },
-    output: {
-      filename: 'index_bundle.js',
-      path: __dirname + '/dist'
-    }
-  },
-  {
-    entry: './app/index.scss',
-    devtool: false,
-    mode: "development",
-    module: {
-      rules: [{
+      },
+      {
+        test: /\.scss$/,
         use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader' },
           {
-            loader: 'file-loader',
+            loader: 'postcss-loader',
             options: {
-              name: 'index_bundle.css'
+              plugins: () => [require('autoprefixer')],
             }
-          },
-          {
-            loader: 'extract-loader'
-          },
-          {
-            loader: 'css-loader'
           },
           {
             loader: 'sass-loader',
             options: {
-              includePaths: [ './node_modules' ]
+              includePaths: ['./node_modules']
             }
           }
         ]
-      }]
-    },
-    output: {
-      // This is necessary for webpack to compile. We never use ignore-style-bundle.js
-      filename: 'ignore-style-bundle.js',
-      path: __dirname + '/dist'
-    }
-  }
-];
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + '/app/index.html'
+    }),
+
+    new webpack.HotModuleReplacementPlugin(),
+
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: 'bundle.css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    })
+
+  ],
+  devServer: {
+    inline: true, // live update
+    hot: true, // hot update
+  },
+}
+]
