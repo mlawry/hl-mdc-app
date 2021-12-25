@@ -1,8 +1,8 @@
-# YTML Highlighter app MDC customisation
+# ROAR Highlighter app MDC customisation
 
-This repository is a skeleton project that allows you to customise the UI of a [YTML Highlighter](https://ytml.com.au/Products/Highlighter) app using components from the [Material Design System](https://material.io/).
+This repository is a skeleton project that allows you to customise the UI of a [ROAR Highlighter](https://roarsoftware.com.au/capabilities/highlighter) app using components from the [Material Design System](https://material.io/components?platform=web).
 A Highlighter app's UI already includes several JavaScript libraries: every Web page loads common libraries such as jQuery and bootstrap.
-Hence it is necessary to bundle the Material Design Components (MDC) (JavaScript and CSS) in a way that does not conflict with the default JS and CSS libraries included with Highlighter apps.
+Hence this project is set up in such a way that it can webpack the Material Design Components (MDC) (JavaScript and CSS) in a way that does not conflict with the default JS and CSS libraries included with Highlighter apps.
 
 The skeleton Node.js project contained in this repository is set up to compile the JavaScript written in `app/index.js` into a single bundled `dist/index_bundle.js` file, and compile the Sass written in `app/index.scss` into a single CSS bundle file `dist/index_bundle.css`.
 By compiling the JS into a bundle, the MDC JavaScripts avoid the use of runtime module loading (typically via require.js), the result is that the code is more self-contained and less likely to cause conflicts with Highlighter app's JavaScript libraries.
@@ -11,7 +11,7 @@ The same reasoning applies to the Sass/CSS bundle.
 ## How to use this project
 
 Install Node.js and Npm on your computer.
-This project has been tested on `node` version 10.15.3 and `npm` version 6.4.1.
+This project has been tested on `node` version 16.12.0 and `npm` version 8.1.0.
 
 Git clone this repository onto your computer as directory **hl-mdc-app**.
 
