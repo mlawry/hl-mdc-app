@@ -4,32 +4,40 @@ This repository is a skeleton project that allows you to customise the UI of a [
 A Highlighter app's UI already includes several JavaScript libraries: every Web page loads common libraries such as jQuery and bootstrap.
 Hence this project is set up in such a way that it can webpack the Material Design Components (MDC) (JavaScript and CSS) in a way that does not conflict with the default JS and CSS libraries included with Highlighter apps.
 
-The skeleton Node.js project contained in this repository is set up to compile the JavaScript written in `app/index.js` into a single bundled `dist/index_bundle.js` file, and compile the Sass written in `app/index.scss` into a single CSS bundle file `dist/index_bundle.css`.
-By compiling the JS into a bundle, the MDC JavaScripts avoid the use of runtime module loading (typically via require.js), the result is that the code is more self-contained and less likely to cause conflicts with Highlighter app's JavaScript libraries.
-The same reasoning applies to the Sass/CSS bundle.
+The skeleton Node.js project contained in this repository is set up to compile the JavaScript written in `src/index.js` into a single bundled `dist/hl-mdc-app-bundle.js` file.
+Webpack style-loader is used to package Sass styles into the JavaScript bundle as well.
+The styles will be added to a Web page's <head><style> tag at runtime.
+Webpack is also configured to package `.png` or `.jpg` image files into the JavaScript bundle using the asset/inline module.
+
+By packaging all resources into a single bundle, all dependencies are included together so there is no need for runtime loading of resources (e.g. via require.js).
+The resultant code is more self-contained and less likely to cause conflicts with Highlighter app's JavaScript libraries.
+
+Note that this project assumes jQuery is provided globally by Highlighter, so the code can simply use the `jQuery` variable (you can use `$` as well) without defining it.
 
 ## How to use this project
 
 Install Node.js and Npm on your computer.
-This project has been tested on `node` version 16.12.0 and `npm` version 8.1.0.
+This project has been tested with `node` version 16.12.0 and `npm` version 8.1.0.
 
 Git clone this repository onto your computer as directory **hl-mdc-app**.
 
 Within the project directory (**hl-mdc-app**), run `npm install` command to install required Node.js modules.
 
-Run `npm start` command, you should see a message *webpack is watching the files...*.
+Run the `npm run dev` command and webpack will create the output bundle **dist/hl-mdc-app-bundle.js**.
+Edit the **src/index.js** and other source files, whenever you save these files with changes, re-run the command to update the output bundle.
 
-Edit the **app/index.js** and **app/index.scss** files, whenever you save these files with changes, webpack will re-bundle them into the output files **dist/index_bundle.js** and **index_bundle.css** respectively.
-
-When you're ready, uploading the files **dist/index_bundle.js** and **index_bundle.css** into Highlighter.
+When you are ready, upload the bundle file **dist/hl-mdc-app-bundle.js** to Highlighter and link it as a customisation script for an app.
 
 ## Generating minified code
 
-By default the bundled code is not minified so as to aid debugging.
-Edit the **webpack.config.js** file and change all of the `mode: "development"` options to `mode: "production"` and the resulting bundled code will be minified.
+The `npm run dev` command generates bundled code that is not minified so as to aid debugging.
+You can generate minified bundled code by using the command `npm run build`.
 
 ## More information
 
-Information on the set up of this project can be found in the [Material Design Getting Started Guide for Web](https://material.io/develop/web/docs/getting-started/) (scroll down to the *Using MDC Web with Sass and ES2015* section).
+This webpack project is kept simple on purpose to reduce the number of dependencies.
+In particular it does not use babel and babel-loader, which means the JavaScript code needs to be understandable by Web browsers directly.
+A good bet is to write ECMAScript 2015 (also known as ES6) JavaScript because all modern browsers support it.
+For a more complex set up involving babel, see the [Material Design Getting Started Guide for Web](https://material.io/develop/web/docs/getting-started/) (scroll down to the *Using MDC Web with Sass and ES2015* section).
 
-
+For a list of available Material Design Components and how to use them for the Web, see https://material.io/components?platform=web

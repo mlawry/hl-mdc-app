@@ -4,7 +4,8 @@
   "description": "This app creates ROAR Highlighter customisation scripts and style sheets.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "dev": "webpack",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

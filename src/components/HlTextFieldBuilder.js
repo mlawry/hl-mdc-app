@@ -1,7 +1,8 @@
 import { MDCTextField } from '@material/textfield';
 
 // Webpack has been configured to use style-loader to inject this SCSS into the
-// DOM's <head><style> tag.
+// DOM's <head><style> tag. Alternatively, you can configure webpack to output
+// a CSS file and add it to Highlighter separately.
 import './HlTextFieldBuilder.scss';
 
 /**

@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: 'bundle.js',
+        filename: 'hl-mdc-app-bundle.js',
         path: path.resolve(__dirname, './dist'), // Path must be absolute.
         publicPath: './dist/' // May need to set this to Highlighter appropriate path. Must end in slash for directories.
     },
@@ -12,10 +12,10 @@ module.exports = {
     module: {
         rules: [
             {   // This rule allows images to be imported like a JS module and assigned to img.src attribute.
-                // The file itself will be copied to the output path (dist) and the URL is the value assigned
-                // to img.src. The default output file name is a hash of the contents of the image.
+                // The image file will be read into a base64 data URI, which can be assigned to img.src.
+                // The only downside is that the final JS bundle will be quite large.
                 test: /\.(png|jpg)$/,
-                type: 'asset/resource' // Can also use asset/inline.
+                type: 'asset/inline'
             },
             {
                 // This rule allows CSS to be webpacked into the JS bundle.
