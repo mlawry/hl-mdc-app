@@ -5,8 +5,9 @@ A Highlighter app's UI already includes several JavaScript libraries: every Web 
 Hence this project is set up in such a way that it can webpack the Material Design Components (MDC) (JavaScript and CSS) in a way that does not conflict with the default JS and CSS libraries included with Highlighter apps.
 
 The skeleton Node.js project contained in this repository is set up to compile the JavaScript written in `src/index.js` into a single bundled `dist/hl-mdc-app-bundle.js` file.
-Webpack style-loader is used to package Sass styles into the JavaScript bundle as well.
+Webpack `style-loader` is used to package Sass styles into the JavaScript bundle as well.
 The styles will be added to a Web page's <head><style> tag at runtime.
+Alternatively, you can update **webpack.config.js** to use the `MiniCssExtractPlugin.loader` instead to output all styles to a separate .css file.
 Webpack is also configured to package `.png` or `.jpg` image files into the JavaScript bundle using the asset/inline module.
 
 By packaging all resources into a single bundle, all dependencies are included together so there is no need for runtime loading of resources (e.g. via require.js).

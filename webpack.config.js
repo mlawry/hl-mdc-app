@@ -1,6 +1,9 @@
 // This module helps us resolve relative paths into absolute paths (which webpack requires).
 const path = require('path');
 
+// This module is a plugin that extracts CSS and outputs them to a separate file.
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
     entry: './src/index.js',
     output: {
@@ -21,7 +24,8 @@ module.exports = {
                 // This rule allows CSS to be webpacked into the JS bundle.
                 test: /\.css$/,
                 use: [
-                    'style-loader', // This loader renders the CSSJS using <style> tags.
+                    //MiniCssExtractPlugin.loader, // Replace style-loader with this loader to output CSS to a separate .css file.
+                    'style-loader', // This loader renders the CSSJS using <style> tags. Comment out if using MiniCssExtractPlugin.loader.
                     'css-loader'    // This loader reads the CSS from file and exposes it as CSSJS.
                 ]
             },
@@ -29,11 +33,19 @@ module.exports = {
                 // This rule allows SCSS to be webpacked into the JS bundle.
                 test: /\.scss$/,
                 use: [
-                    'style-loader', // This loader renders the CSSJS using <style> tags.
+                    //MiniCssExtractPlugin.loader, // Replace style-loader with this loader to output CSS to a separate .css file.
+                    'style-loader', // This loader renders the CSSJS using <style> tags. Comment out if using MiniCssExtractPlugin.loader.
                     'css-loader',   // This loader reads the CSS and exposes it as CSSJS.
                     'sass-loader'   // This loader reads the SCSS file and converts it to CSS.
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        // Uncomment this plugin to output CSS to a separate file.
+        // More info about this plugin at https://webpack.js.org/plugins/mini-css-extract-plugin/
+        //new MiniCssExtractPlugin({
+        //    filename: 'hl-mdc-app-bundle.css'
+        //})
+    ]
 };
