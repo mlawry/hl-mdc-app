@@ -1,13 +1,17 @@
-# ROAR Highlighter app MDC customisation
+# DASH Highlighter app customisation
 
-This repository is a skeleton project that allows you to customise the UI of a [ROAR Highlighter](https://roarsoftware.com.au/capabilities/highlighter) app using components from the [Material Design System](https://material.io/components?platform=web).
+This repository is a skeleton project that helps you to customise the UI of your [DASH](https://www.dash.com.au/) Highlighter app using:
+
+* Components from the [Material Design System](https://material.io/components?platform=web).
+* [Apache Echart](https://echarts.apache.org/) library.
+
 A Highlighter app's UI already includes several JavaScript libraries: every Web page loads common libraries such as jQuery and bootstrap.
-Hence this project is set up in such a way that it can webpack the Material Design Components (MDC) (JavaScript and CSS) in a way that does not conflict with the default JS and CSS libraries included with Highlighter apps.
+Hence this project is set up in such a way that it can webpack the Material Design Components (MDC) and Echart (JavaScript and CSS) in a way that does not conflict with the default JS and CSS libraries included with Highlighter apps.
 
-The skeleton Node.js project contained in this repository is set up to compile the JavaScript written in `src/index.js` into a single bundled `dist/hl-mdc-app-bundle.js` file.
+The skeleton Node.js project contained in this repository is set up to compile the JavaScript written in **src/index.js** into a single bundled **dist/hl-mdc-app-bundle.js** file.
 Webpack `style-loader` is used to package Sass styles into the JavaScript bundle as well.
-The styles will be added to a Web page's <head><style> tag at runtime.
-Alternatively, you can update **webpack.config.js** to use the `MiniCssExtractPlugin.loader` instead to output all styles to a separate .css file.
+The styles will be added to a Web page's `<head><style>` tag at runtime.
+Alternatively, you can update **webpack.config.js** to enable the `MiniCssExtractPlugin` to output all styles to a separate .css file.
 Webpack is also configured to package `.png` or `.jpg` image files into the JavaScript bundle using the asset/inline module.
 
 By packaging all resources into a single bundle, all dependencies are included together so there is no need for runtime loading of resources (e.g. via require.js).
@@ -18,7 +22,7 @@ Note that this project assumes jQuery is provided globally by Highlighter, so th
 ## How to use this project
 
 Install Node.js and Npm on your computer.
-This project has been tested with `node` version 16.12.0 and `npm` version 8.1.0.
+This project has been tested with `node` version 18.17.1 and `npm` version 9.6.7.
 
 Git clone this repository onto your computer as directory **hl-mdc-app**.
 

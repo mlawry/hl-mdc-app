@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 // This module helps us resolve relative paths into absolute paths (which webpack requires).
 const path = require('path');
 
@@ -46,6 +48,14 @@ module.exports = {
         // More info about this plugin at https://webpack.js.org/plugins/mini-css-extract-plugin/
         //new MiniCssExtractPlugin({
         //    filename: 'hl-mdc-app-bundle.css'
-        //})
+        //}),
+        // This plugin is required to fix an error when loading echart "ReferenceError: process is not defined".
+        // The error happens because webpack 5 no longer includes a polyfill for the `process` Node.js global variable.
+        // The zrender library used by echart has a line of code that assumes the presence of `process`, which does not
+        // exist in a browser environment. As a workaround, this project's package.json included the 'process' library,
+        // and the following ProvidePlugin config is used to introduce the variable into all modules.
+        new webpack.ProvidePlugin({
+            process: 'process/browser'
+        })
     ]
 };

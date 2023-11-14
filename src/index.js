@@ -1,4 +1,5 @@
 import HlTextFieldBuilder from './components/HlTextFieldBuilder.js';
+import MyChart from './components/MyChart.js';
 
 window.setTimeout(function () {
     // div.controls is a standard DOM element found in all Highlighter pages.
@@ -18,5 +19,37 @@ window.setTimeout(function () {
     // to provide behaviours to those DOM elements as proper MDCTextFields.
     txtBuilder.start(elem1);
     txtBuilder.start(elem2);
+
+    // Create a 2nd div to show the echart.
+    const secondDiv = jQuery(document.createElement("div"))
+        .addClass('my-chart-class')
+        .appendTo(firstDiv);
+
+    // Specify the configuration items and data for the chart
+    var chartOption = {
+        title: {
+            text: 'ECharts Getting Started Example'
+        },
+        tooltip: {},
+        legend: {
+            data: ['sales']
+        },
+        xAxis: {
+            data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+        },
+        yAxis: {},
+        series: [
+            {
+                name: 'sales',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }
+        ]
+    };
+    
+    // Create the chart and display it.
+    const chart = new MyChart(secondDiv[0]);
+    chart.setOption(chartOption);
+
 }, 1000);
 
